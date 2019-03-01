@@ -1,0 +1,5 @@
+*.pkl
+*.pyc
+*.swp
+*.DS_Store
+demo/.ipynb_checkpoints/*
