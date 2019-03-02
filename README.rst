@@ -14,6 +14,7 @@ with the star alignment method.
 This was developed in the context of a bio-informatics course project at CentraleSupélec.
 
 Authors:
+
 - **Louis Bourguet**
 - **Hanaé Carrié**
 
