@@ -20,6 +20,6 @@ Authors:
 
 This package mainly provides:
 
-- utilitarian functions to insert gap into DNA sequences
+- utilitarian functions to insert gap into DNA sequences, to generate random mutations, calculate alignment score
 - a function to align 2 sequences together with the Needleman and Wunsch method
 - the multiple alignment function with the star method
