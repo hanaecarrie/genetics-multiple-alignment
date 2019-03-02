@@ -6,7 +6,7 @@ import itertools
 from utils import cost, addgap
 
 
-def align_2by2(seq1, seq2):
+def align_nw_2by2(seq1, seq2):
     """ Perform 2 by 2 sequence alignment with the Needleman and Wunsch algorithm.
     Parameters:
     ----------
@@ -68,7 +68,7 @@ def align_2by2(seq1, seq2):
     return scores, paths, aligned, L
 
 
-def star_align_multiple(seqs, verbose=2):
+def align_star_multiple(seqs, verbose=2):
     """ Perform 2 by 2 sequence alignment with the Needleman and Wunsch algorithm.
     Parameters:
     ----------
@@ -87,7 +87,7 @@ def star_align_multiple(seqs, verbose=2):
     # compute 2 by 2 scores for all combinaisons
     scores2a2 = pairs.copy()
     for ip, p in enumerate(pairs):
-        scores2a2[ip] = align_2by2(seqs[p[0]], seqs[p[1]])[0][-1, -1]
+        scores2a2[ip] = align_nw_2by2(seqs[p[0]], seqs[p[1]])[0][-1, -1]
     if verbose > 1:
         print("scores2a2 =", scores2a2)
     # compute global scores for each sequence as sum of 2by2 scores
@@ -110,7 +110,7 @@ def star_align_multiple(seqs, verbose=2):
     for ir in range(len(res)):
         # align sequences to pivot
         if res[ir] != pivot:  # the pivot sequence does not need to be aligned to itself
-            alignment = align_2by2(res[ir], res[imax])
+            alignment = align_nw_2by2(res[ir], res[imax])
             res[ir], res[imax] = alignment[2]  # result of the alignment
             L = alignment[3]  # result list gap position to consider
             if res[imax] != pivot:  # if new gaps were introduced into the pivot sequence with the 2by2 alignment
@@ -132,9 +132,9 @@ if __name__ == "__main__":
     print(addgap(ex, [5, 1, 0, 0, 0]))
 
     print("EXEMPLE 0 : 2a2")
-    print(align_2by2("ATGAGAT", "AGGAGAGT"))
+    print(align_nw_2by2("ATGAGAT", "AGGAGAGT"))
     print("EXEMPLE 1 : COURS PAGE 16")
-    star_align_multiple(["ATGAGAT", "AGGAGAGT", "GGAGG", "AGGGAGT", "AGAAC"])
+    align_star_multiple(["ATGAGAT", "AGGAGAGT", "GGAGG", "AGGGAGT", "AGAAC"])
     print("EXEMPLE 2 : TEST SUR DONNÉES SYNTHÉTISÉES")
     alphabet = ["A", "C", "G", "T"]
     seq0 = choice(alphabet, 7)
@@ -164,4 +164,4 @@ if __name__ == "__main__":
     seq4 = seq4[:4] + 'T' + seq4[4:]
     print(seq4)
     # global alignement
-    star_align_multiple([seq0, seq1, seq2, seq3, seq4])
+    align_star_multiple([seq0, seq1, seq2, seq3, seq4])
